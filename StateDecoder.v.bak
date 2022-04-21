@@ -1,0 +1,47 @@
+module StateDecoder (
+    input wire [9:0] state,
+    input wire [9:0] next_state,
+    output reg [5:0] enable_signals,
+    output reg [3:0] alu_op
+);
+
+    // en5: R3en
+    // en4: R2en
+    // en3: R1en
+    // en2: OutBuf
+    // en1: ImmBuf
+    // en0: ExternBuf
+
+    // alu_op changes on the transition from S to S
+    always @(next_state) begin
+        case (next_state)
+            FSM.S0: alu_op = 4'bXXXX;
+            FSM.S1: alu_op = 4'bXXXX;
+            FSM.S2: alu_op = 4'bXXXX;
+            FSM.S3: alu_op = ALU.ADD;
+            FSM.S4: alu_op = 4'bXXXX;
+            FSM.S5: alu_op = ALU.OR;
+            FSM.S6: alu_op = 4'bXXXX;
+            FSM.S7: alu_op = ALU.NOT;
+            FSM.S8: alu_op = 4'bXXXX;
+            FSM.S9: alu_op = ALU.XOR;
+            default: alu_op = 4'bXXXX;
+        endcase
+    end
+
+    always @(state) begin
+        case(state)
+            FSM.S0: enable_signals = 6'd0;
+            FSM.S1: enable_signals = 6'b001001; 
+            FSM.S2: enable_signals = 6'b010010;
+            FSM.S3: enable_signals = 6'b100000;
+            FSM.S4: enable_signals = 6'b010100;
+            FSM.S5: enable_signals = 6'b100000;
+            FSM.S6: enable_signals = 6'b001100;
+            FSM.S7: enable_signals = 6'b100000;
+            FSM.S8: enable_signals = 6'b001100;
+            FSM.S9: enable_signals = 6'b101000;
+            defaut: enable_signals = 6'd0;
+        endcase
+    end
+endmodule

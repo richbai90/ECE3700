@@ -1,0 +1,3 @@
+module Buffer(inout io, input write, input en);
+    assign io = en ? write : 4'bZZZZ;
+endmodule
