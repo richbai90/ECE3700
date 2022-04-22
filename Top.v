@@ -1,7 +1,8 @@
 module Top (
     input wire [3:0] external, // switches
-    input wire reset, clk,
-    output wire [6:0] sevseg
+    input wire reset, clk, logictapclk,
+    output wire [6:0] sevseg,
+    output wire [6:0] sevseg2
 );
 
     wire [3:0] state, next_state;
@@ -15,5 +16,6 @@ module Top (
     Buffer out_buf(.write(R3out), .en(enable_signals[2]), .io(databus));
     Buffer imm_buf(.write(4'b0011), .en(enable_signals[1]), .io(databus));
     Buffer extern_buf(.write(external), .en(enable_signals[0]), .io(databus));
-    SevenSeg ss(.hex_input(databus), .seven_seg(sevseg));
+    SevenSeg ss(.hex_input(R3out), .seven_seg(sevseg));
+    SevenSeg ss2(.hex_input(state), .seven_seg(sevseg2));
 endmodule

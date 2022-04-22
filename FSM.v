@@ -24,6 +24,7 @@ always @(state) begin
         S4: next_state = S5;
         S5: next_state = S6;
         S6: next_state = S7;
+        S7: next_state = S8;
         S8: next_state = S9;
         S9: next_state = S9;
         default: next_state = S0;
@@ -31,7 +32,7 @@ always @(state) begin
 
 end
 
-always @(posedge clk, negedge reset) begin
+always @(negedge clk, negedge reset) begin
     if(!reset) state <= S0;
     else state <= next_state;
 end
