@@ -1,18 +1,18 @@
 module FSM #(
-    parameter S0 = 11'b00000000001,
-    parameter S1 = 11'b00000000010,
-    parameter S2 = 11'b00000000100,
-    parameter S3 = 11'b00000001000,
-    parameter S4 = 11'b00000010000,
-    parameter S5 = 11'b00000100000,
-    parameter S6 = 11'b00001000000,
-    parameter S7 = 11'b00010000000,
-    parameter S8 = 11'b00100000000,
-    parameter S9 = 11'b01000000000
+    parameter S0 = 4'd0,
+    parameter S1 = 4'd1,
+    parameter S2 = 4'd2,
+    parameter S3 = 4'd3,
+    parameter S4 = 4'd4,
+    parameter S5 = 4'd5,
+    parameter S6 = 4'd6,
+    parameter S7 = 4'd7,
+    parameter S8 = 4'd8,
+    parameter S9 = 4'd9
 ) (
     input wire clk, reset,
-    output reg [10:0] state,
-    output reg [10:0] next_state
+    output reg [3:0] state,
+    output reg [3:0] next_state
 );
 
 always @(state) begin

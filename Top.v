@@ -4,8 +4,7 @@ module Top (
     output wire [6:0] sevseg
 );
 
-    wire [9:0] state;
-    wire [9:0] next_state;
+    wire [3:0] state, next_state;
     wire [5:0] enable_signals;
     wire [3:0] R1out, R2out, R3out, alu_op, R3, databus;
 
@@ -16,5 +15,5 @@ module Top (
     Buffer out_buf(.write(R3out), .en(enable_signals[2]), .io(databus));
     Buffer imm_buf(.write(4'b0011), .en(enable_signals[1]), .io(databus));
     Buffer extern_buf(.write(external), .en(enable_signals[0]), .io(databus));
-    bcd_to_sev_seg ss(.bcd(databus), .seven_seg(sevseg));
+    SevenSeg ss(.hex_input(databus), .seven_seg(sevseg));
 endmodule

@@ -10,7 +10,7 @@ module ALU #(
     always @(A, B, op) begin
         case (op)
             ADD: result = A + B;
-            OR: result = A | B;
+            OR:  result = A | B;
             XOR: result = A ^ B;
             NOT: result = ~A;
             default: result = A;
